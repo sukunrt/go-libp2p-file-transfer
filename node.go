@@ -22,6 +22,7 @@ import (
 	"github.com/libp2p/go-libp2p/core/network"
 	"github.com/libp2p/go-libp2p/core/peer"
 	"github.com/libp2p/go-libp2p/core/peerstore"
+	libp2pwebrtc "github.com/libp2p/go-libp2p/p2p/transport/webrtc"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -78,7 +79,8 @@ func NewNode(dirPath string, opts ...Option) (*Node, error) {
 
 	peerChan := make(chan peer.AddrInfo, 100)
 	lOpts := []libp2p.Option{
-		libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/0.0.0.0/udp/%s/quic-v1", cfg.port)),
+		libp2p.Transport(libp2pwebrtc.New),
+		libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/0.0.0.0/udp/%s/webrtc-direct", cfg.port)),
 		libp2p.EnableAutoRelayWithPeerSource(
 			func(ctx context.Context, num int) <-chan peer.AddrInfo {
 				ch := make(chan peer.AddrInfo, num)
