@@ -24,7 +24,7 @@ func main() {
 		log.Print(err)
 		return
 	}
-	dirPath := flag.String("dir", "data", "directory to serve")
+	dirPath := flag.String("dir", ".", "directory to serve")
 	port := flag.String("port", "9700", "port for the server")
 	newKey := flag.Bool("newKey", false, "should use new key for ID")
 	flag.Parse()
