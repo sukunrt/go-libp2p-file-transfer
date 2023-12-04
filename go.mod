@@ -112,5 +112,3 @@ require (
 	google.golang.org/protobuf v1.30.0 // indirect
 	lukechampine.com/blake3 v1.2.1 // indirect
 )
-
-replace github.com/libp2p/go-libp2p => /Users/sukun/projects/go-libp2p
