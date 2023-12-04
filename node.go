@@ -116,7 +116,10 @@ func NewNode(dirPath string, opts ...Option) (*Node, error) {
 	ctx, cancel := context.WithCancel(context.Background())
 	go relayProvider{host: h}.Provide(ctx, peerChan)
 
-	d, err := dht.New(ctx, h, dht.BootstrapPeers(dht.GetDefaultBootstrapPeerAddrInfos()...))
+	d, err := dht.New(ctx, h,
+		dht.BootstrapPeers(dht.GetDefaultBootstrapPeerAddrInfos()...),
+		dht.Mode(dht.ModeClient),
+	)
 	if err != nil {
 		cancel()
 		return nil, err
