@@ -62,7 +62,10 @@ OUTER:
 				addr := ma.StringCast(words[3])
 				fmt.Println(string(n.GetFile(peer.AddrInfo{ID: id, Addrs: []ma.Multiaddr{addr}}, words[1])))
 			case "addrs":
-				fmt.Println(n.ID(), n.Addrs())
+				fmt.Println(n.ID())
+				for _, addr := range n.Addrs() {
+					fmt.Println(addr.Encapsulate(ma.StringCast("/p2p/" + n.ID().String())))
+				}
 			}
 		}
 	}
